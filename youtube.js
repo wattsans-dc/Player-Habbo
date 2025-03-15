@@ -4,34 +4,35 @@ document.getElementById("submitFormData").addEventListener("click", function() {
     const url = document.getElementById("video").value;
     const audioOnly = document.getElementById("audioOnly").checked;
     if (url) {
-        let embedUrl = "";
-        // Tenter d'extraire la playlist, sauf si 'start_radio=1' est présent
+        const videoID = extractVideoID(url);
         const playlistID = extractPlaylistID(url);
+        let embedUrl = "";
+        
         if (playlistID) {
-            // Cas d'une playlist classique
-            embedUrl = `https://www.youtube.com/embed/videoseries?list=${playlistID}&enablejsapi=1&autoplay=1` +
-                (audioOnly ? "&controls=0&showinfo=0&rel=0&modestbranding=1" : "");
-        } else {
-            // Utiliser l'ID de la vidéo pour les liens radio ou vidéo simples
-            const videoID = extractVideoID(url);
-            if (videoID) {
-                embedUrl = `https://www.youtube.com/embed/${videoID}?enablejsapi=1&autoplay=1` +
-                    (audioOnly ? "&controls=0&showinfo=0&rel=0&modestbranding=1" : "");
-            }
+            // Pour toutes les playlists, y compris radio auto-générées, on part de l'ID de la vidéo
+            // et on ajoute le paramètre list.
+            embedUrl = `https://www.youtube.com/embed/${videoID}?enablejsapi=1&autoplay=1&list=${playlistID}`;
+        } else if (videoID) {
+            // Vidéo seule
+            embedUrl = `https://www.youtube.com/embed/${videoID}?enablejsapi=1&autoplay=1`;
         }
         
-        if (embedUrl) {
-            console.log("Embed URL :", embedUrl); // Pour vérifier dans la console
-            // Définir une hauteur minimale même en mode audio si nécessaire
-            const height = (audioOnly && !playlistID) ? '0' : '150';
-            document.getElementById("results").innerHTML = 
-                `<iframe id="ytPlayer" width="300" height="${height}" 
-                  src="${embedUrl}" frameborder="0" allow="autoplay"></iframe>`;
-            
-            setTimeout(() => {
-                player = document.getElementById("ytPlayer");
-            }, 1000);
+        // Ajout des paramètres pour le mode audioOnly
+        if (audioOnly) {
+            embedUrl += "&controls=0&showinfo=0&rel=0&modestbranding=1";
         }
+        
+        // Pour l'affichage : en mode audio pour une vidéo seule, on peut réduire la hauteur à 0,
+        // mais pour une playlist (notamment radio) une hauteur minimale (150) est nécessaire.
+        const height = (audioOnly && !playlistID) ? '0' : '150';
+        
+        document.getElementById("results").innerHTML =
+            `<iframe id="ytPlayer" width="300" height="${height}" 
+            src="${embedUrl}" frameborder="0" allow="autoplay"></iframe>`;
+        
+        setTimeout(() => {
+            player = document.getElementById("ytPlayer");
+        }, 1000);
     }
 });
 
@@ -42,13 +43,10 @@ function extractVideoID(url) {
 }
 
 function extractPlaylistID(url) {
-    // Si le lien contient 'start_radio=1', on ignore la playlist
-    if (url.includes("start_radio=1")) return null;
     const regex = /[?&]list=([a-zA-Z0-9_-]+)/;
     const match = url.match(regex);
     return match ? match[1] : null;
 }
-
 
 // Bouton Suivant : passe à la vidéo suivante dans la playlist
 document.getElementById("nextBtn").addEventListener("click", function() {
