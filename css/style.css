@@ -3,52 +3,50 @@
     background: #222;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     text-align: center;
     color: white;
     position: absolute;
     top: 50px;
     left: 50px;
     cursor: grab;
-}
-
-.input-group {
+    resize: both;
+    overflow: auto;
+  }
+  .input-group {
     display: flex;
     gap: 10px;
-}
-
-.input-field {
+    margin-bottom: 10px;
+  }
+  .input-field {
     flex: 1;
     padding: 10px;
     border: none;
     border-radius: 5px;
-}
-
-.play-button {
+  }
+  .play-button {
     background: #28a745;
     color: white;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.controls {
+  }
+  .controls {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
-}
-
-.control-btn {
+  }
+  .control-btn {
     background: #007bff;
     color: white;
     border: none;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.results {
+  }
+  .results {
     margin-top: 10px;
     color: white;
-}
+  }
+  

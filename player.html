@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Lecteur YouTube Playlist</title>
 </head>
 <body>
@@ -14,24 +14,23 @@
         <button type="button" id="submitFormData" class="play-button">Jouer</button>
       </div>
       <div class="controls">
-        <button type="button" class="control-btn" id="pauseBtn">Pause</button>
-        <button type="button" class="control-btn" id="resumeBtn">Reprendre</button>
-        <button type="button" class="control-btn" id="stopBtn">Stop</button>
+        <button type="button" id="pauseBtn" class="control-btn">Pause</button>
+        <button type="button" id="resumeBtn" class="control-btn">Reprendre</button>
+        <button type="button" id="stopBtn" class="control-btn">Stop</button>
       </div>
       <div class="controls">
-        <button type="button" class="control-btn" id="volumeUp">🔊 +</button>
-        <button type="button" class="control-btn" id="volumeDown">🔉 -</button>
-        <button type="button" class="control-btn" id="resetVolume">🔄 Volume</button>
+        <button type="button" id="volumeUp" class="control-btn">🔊 +</button>
+        <button type="button" id="volumeDown" class="control-btn">🔉 -</button>
+        <button type="button" id="resetVolume" class="control-btn">🔄 Volume</button>
       </div>
       <div class="controls">
-        <button type="button" class="control-btn" id="speedUp">⏩ +</button>
-        <button type="button" class="control-btn" id="speedDown">⏪ -</button>
-        <button type="button" class="control-btn" id="resetSpeed">🔄 Vitesse</button>
+        <button type="button" id="speedUp" class="control-btn">⏩ +</button>
+        <button type="button" id="speedDown" class="control-btn">⏪ -</button>
+        <button type="button" id="resetSpeed" class="control-btn">🔄 Vitesse</button>
       </div>
-      <!-- Boutons pour changer de musique dans la playlist -->
       <div class="controls">
-        <button type="button" class="control-btn" id="prevBtn">Précédent</button>
-        <button type="button" class="control-btn" id="nextBtn">Suivant</button>
+        <button type="button" id="prevBtn" class="control-btn">Précédent</button>
+        <button type="button" id="nextBtn" class="control-btn">Suivant</button>
       </div>
       <div id="results" class="results"></div>
       <label>
@@ -39,8 +38,9 @@
       </label>
     </form>
   </div>
-  
-  <script src="youtube.js"></script>
-  <script src="functions.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/youtubePlayer.js"></script>
+  <script src="js/buttonHandlers.js"></script>
+  <script src="js/ui.js"></script>
 </body>
 </html>
