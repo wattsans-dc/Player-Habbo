@@ -1,36 +1,46 @@
-
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Lecteur YouTube Playlist</title>
 </head>
-
-    <div id="playerContainer" class="player-container">
-        <form id="myForm">
-            <div class="input-group">
-                <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
-                <button type="button" id="submitFormData" class="play-button">Jouer</button>
-            </div>
-            <div class="controls">
-                <button type="button" class="control-btn" id="pauseBtn">Pause</button>
-                <button type="button" class="control-btn" id="resumeBtn">Reprendre</button>
-                <button type="button" class="control-btn" id="stopBtn">Stop</button>
-            </div>
-            <div class="controls">
-                <button type="button" class="control-btn" id="volumeUp">🔊 +</button>
-                <button type="button" class="control-btn" id="volumeDown">🔉 -</button>
-                <button type="button" class="control-btn" id="resetVolume">🔄 Volume</button>
-            </div>
-            <div class="controls">
-                <button type="button" class="control-btn" id="speedUp">⏩ +</button>
-                <button type="button" class="control-btn" id="speedDown">⏪ -</button>
-                <button type="button" class="control-btn" id="resetSpeed">🔄 Vitesse</button>
-            </div>
-            <div id="results" class="results"></div>
-            <label>
-                <input type="checkbox" id="audioOnly"> Mode audio seulement
-            </label>
-        </form>
-    </div>
-    <script src="script.js"></script>
-
+<body>
+  <div id="playerContainer" class="player-container">
+    <form id="myForm">
+      <div class="input-group">
+        <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
+        <button type="button" id="submitFormData" class="play-button">Jouer</button>
+      </div>
+      <div class="controls">
+        <button type="button" class="control-btn" id="pauseBtn">Pause</button>
+        <button type="button" class="control-btn" id="resumeBtn">Reprendre</button>
+        <button type="button" class="control-btn" id="stopBtn">Stop</button>
+      </div>
+      <div class="controls">
+        <button type="button" class="control-btn" id="volumeUp">🔊 +</button>
+        <button type="button" class="control-btn" id="volumeDown">🔉 -</button>
+        <button type="button" class="control-btn" id="resetVolume">🔄 Volume</button>
+      </div>
+      <div class="controls">
+        <button type="button" class="control-btn" id="speedUp">⏩ +</button>
+        <button type="button" class="control-btn" id="speedDown">⏪ -</button>
+        <button type="button" class="control-btn" id="resetSpeed">🔄 Vitesse</button>
+      </div>
+      <!-- Boutons pour changer de musique dans la playlist -->
+      <div class="controls">
+        <button type="button" class="control-btn" id="prevBtn">Précédent</button>
+        <button type="button" class="control-btn" id="nextBtn">Suivant</button>
+      </div>
+      <div id="results" class="results"></div>
+      <label>
+        <input type="checkbox" id="audioOnly"> Mode audio seulement
+      </label>
+    </form>
+  </div>
+  
+  <script src="youtube.js"></script>
+  <script src="functions.js"></script>
+</body>
+</html>
