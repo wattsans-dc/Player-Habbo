@@ -1,54 +1,125 @@
 (function() {
   var player;
-  function getPlayer() {
-    return player;
+  var currentPlaylist = null; // Pour stocker la playlist si disponible
+
+  // Cette fonction est appelée lorsque l'API IFrame est prête
+  window.onYouTubeIframeAPIReady = function() {
+    console.log("API IFrame YouTube chargée !");
+  };
+
+  // Callback quand le player est prêt
+  function onPlayerReady(event) {
+    console.log("Player prêt");
+    updateCurrentTitle();
+    var playlist = player.getPlaylist();
+    if (playlist && playlist.length > 0) {
+      currentPlaylist = playlist;
+      populatePlaylistDropdown(playlist);
+      document.getElementById("playlistDropdown").style.display = "block";
+    } else {
+      document.getElementById("playlistDropdown").style.display = "none";
+    }
   }
+
+  // Callback sur les changements d'état du player
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      updateCurrentTitle();
+    }
+  }
+
+  // Met à jour le titre affiché
+  function updateCurrentTitle() {
+    if (player && typeof player.getVideoData === 'function') {
+      var data = player.getVideoData();
+      document.getElementById("currentTitle").innerText = data.title || "";
+    }
+  }
+
+  // Remplit le menu déroulant de la playlist
+  function populatePlaylistDropdown(playlist) {
+    var dropdown = document.getElementById("playlistDropdown");
+    dropdown.innerHTML = "";
+    for (var i = 0; i < playlist.length; i++) {
+      var option = document.createElement("option");
+      option.value = i;
+      option.text = "Morceau " + (i + 1);
+      dropdown.appendChild(option);
+    }
+    dropdown.selectedIndex = player.getPlaylistIndex();
+  }
+
+  // Listener pour changer de morceau via le menu déroulant
+  document.getElementById("playlistDropdown").addEventListener("change", function() {
+    var index = parseInt(this.value, 10);
+    if (player && !isNaN(index)) {
+      player.playVideoAt(index);
+    }
+  });
+
+  // Charge la vidéo ou la playlist en créant un nouveau YT.Player
   function loadVideo(videoID, playlistID, index) {
+    console.log("Chargement de la vidéo:", videoID, "Playlist:", playlistID, "Index:", index);
     var audioOnly = document.getElementById('audioOnly').checked;
-    var embedUrl = "https://www.youtube.com/embed/" + videoID + "?enablejsapi=1&autoplay=1";
+    var height = audioOnly ? "0" : "150";
+    document.getElementById("results").innerHTML = '<div id="ytPlayer"></div>';
+    
+    var playerVars = {
+      'autoplay': 1,
+      'enablejsapi': 1
+    };
     if (playlistID) {
-      embedUrl += "&list=" + playlistID;
+      playerVars.list = playlistID;
       if (index) {
-        embedUrl += "&index=" + index;
+        playerVars.index = index;
       }
     }
     if (audioOnly) {
-      embedUrl += "&controls=0&showinfo=0&rel=0&modestbranding=1";
+      playerVars.controls = 0;
+      playerVars.showinfo = 0;
+      playerVars.rel = 0;
+      playerVars.modestbranding = 1;
     }
-    var height = audioOnly ? "0" : "150";
-    document.getElementById("results").innerHTML = '<iframe id="ytPlayer" width="300" height="'+ height +'" src="'+ embedUrl +'" frameborder="0" allow="autoplay"></iframe>';
-    setTimeout(function(){
-      player = document.getElementById("ytPlayer");
-    }, 1000);
-  }
-  function checkCopyright(videoID){
-    return videoID && videoID.charAt(0) === "c";
-  }
-  function askGoogleAccount(){
-    if(!localStorage.getItem("googleLinked")){
-      var email = prompt("Veuillez lier votre compte Google pour lire cette musique protégée par des droits d'auteur.");
-      if(email){
-        localStorage.setItem("googleLinked", email);
+    
+    player = new YT.Player('ytPlayer', {
+      height: height,
+      width: "300",
+      videoId: videoID,
+      playerVars: playerVars,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
       }
+    });
+    
+    document.getElementById("controlPanel").style.display = "block";
+    if (playlistID) {
+      document.getElementById("playlistDropdown").style.display = "block";
+      document.getElementById("playlistControls").style.display = "block";
+    } else {
+      document.getElementById("playlistDropdown").style.display = "none";
+      document.getElementById("playlistControls").style.display = "none";
     }
   }
+
   document.getElementById("submitFormData").addEventListener("click", function(){
     var url = document.getElementById("video").value;
     if(url){
       var videoID = window.extractVideoID(url);
-      if(checkCopyright(videoID)){
-        askGoogleAccount();
-      }
       var playlistID = window.extractPlaylistID(url);
       var index = window.extractIndex(url);
       loadVideo(videoID, playlistID, index);
     }
   });
+  
   document.getElementById("audioOnly").addEventListener("change", function(){
     var audioOnly = this.checked;
-    if(player){
-      player.style.height = audioOnly ? "0px" : "150px";
+    if(player && player.getIframe()){
+      player.getIframe().style.height = audioOnly ? "0px" : "150px";
     }
   });
-  window.getPlayer = getPlayer;
+
+  window.getPlayer = function() {
+    return player;
+  };
 })();

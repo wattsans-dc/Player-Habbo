@@ -5,16 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <title>Lecteur YouTube Playlist</title>
+  <!-- Charger l'API IFrame de YouTube -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <style>
+    /* Masquer le panneau de contrôle et les éléments de playlist par défaut */
+    #controlPanel, #playlistDropdown, #playlistControls {
+      display: none;
+    }
+    #currentTitle {
+      font-size: 16px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div id="playerContainer" class="player-container">
-    <button id="closePlayer" class="close-player">×</button>
-    <div id="playerContent">
-      <form id="myForm">
-        <div class="input-group">
-          <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
-          <button type="button" id="submitFormData" class="play-button">Jouer</button>
-        </div>
+    <form id="myForm">
+      <div class="input-group">
+        <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
+        <button type="button" id="submitFormData" class="play-button">Jouer</button>
+      </div>
+      
+      <!-- Zone d'affichage du titre -->
+      <div id="currentTitle"></div>
+      
+      <!-- Menu déroulant pour la playlist -->
+      <select id="playlistDropdown"></select>
+      
+      <!-- Panneau de contrôle global -->
+      <div id="controlPanel">
         <div class="controls">
           <button type="button" id="pauseBtn" class="control-btn">Pause</button>
           <button type="button" id="resumeBtn" class="control-btn">Reprendre</button>
@@ -30,19 +51,20 @@
           <button type="button" id="speedDown" class="control-btn">⏪ -</button>
           <button type="button" id="resetSpeed" class="control-btn">🔄 Vitesse</button>
         </div>
-        <div class="controls">
+        <!-- Boutons de playlist (ils seront masqués si ce n'est pas une playlist) -->
+        <div id="playlistControls" class="controls">
           <button type="button" id="prevBtn" class="control-btn">Précédent</button>
           <button type="button" id="nextBtn" class="control-btn">Suivant</button>
         </div>
-        <div id="results" class="results"></div>
-        <label>
-          <input type="checkbox" id="audioOnly"> Mode audio seulement
-        </label>
-      </form>
-    </div>
+      </div>
+      
+      <!-- Le player sera inséré ici par l'API -->
+      <div id="results"></div>
+      <label>
+        <input type="checkbox" id="audioOnly"> Mode audio seulement
+      </label>
+    </form>
   </div>
-  <button id="showPlayer" class="show-player" style="display:none;">Afficher le Player</button>
-  
   <script src="js/utils.js"></script>
   <script src="js/youtubePlayer.js"></script>
   <script src="js/buttonHandlers.js"></script>
