@@ -2,7 +2,8 @@
   function getPlayer(){
     return window.getPlayer();
   }
-  
+
+
   document.getElementById("pauseBtn").addEventListener("click", function(){
     var player = getPlayer();
     if(player){

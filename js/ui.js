@@ -23,6 +23,21 @@
     isDragging = false;
     container.style.cursor = "grab";
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const infoButton = document.querySelector('.link-player-download');
+    const infoWindow = document.getElementById('infoWindow');
+
+    infoButton.addEventListener('mouseover', function() {
+        document.getElementById("playerContainer").style.overflow = "visible";
+        infoWindow.classList.add('show');
+    });
+
+    infoButton.addEventListener('mouseout', function() {
+        document.getElementById("playerContainer").style.overflow = "auto";
+        infoWindow.classList.remove('show');
+    });
+});
   
   // Fermer le player sans interrompre la lecture
   document.getElementById("closePlayer").addEventListener("click", function(){
