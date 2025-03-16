@@ -30,11 +30,13 @@
 
     infoButton.addEventListener('mouseover', function() {
         document.getElementById("playerContainer").style.overflow = "visible";
+        infoWindow.style.visibility = "visible";
         infoWindow.classList.add('show');
     });
 
     infoButton.addEventListener('mouseout', function() {
         document.getElementById("playerContainer").style.overflow = "auto";
+        infoWindow.style.visibility = "hidden";
         infoWindow.classList.remove('show');
     });
 });

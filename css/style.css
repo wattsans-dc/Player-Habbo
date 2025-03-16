@@ -107,6 +107,7 @@
 }
 
 .info-window {
+  visibility: hidden;
   position: absolute;
   border-radius: 10px;
   top: 50px;
