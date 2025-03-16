@@ -22,6 +22,7 @@
 </head>
 <body>
   <div id="playerContainer" class="player-container">
+    <button id="closePlayer" class="close-player">×</button>
     <form id="myForm">
       <div class="input-group">
         <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
@@ -65,6 +66,9 @@
       </label>
     </form>
   </div>
+  <!-- Bouton pour réafficher le player (affiché lorsque le player est fermé) -->
+  <button id="openPlayer" class="open-player" style="display: none;">Ouvrir le Player</button>
+  
   <script src="js/utils.js"></script>
   <script src="js/youtubePlayer.js"></script>
   <script src="js/buttonHandlers.js"></script>

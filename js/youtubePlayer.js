@@ -1,13 +1,11 @@
 (function() {
   var player;
-  var currentPlaylist = null; // Pour stocker la playlist si disponible
+  var currentPlaylist = null; 
 
-  // Cette fonction est appelée lorsque l'API IFrame est prête
   window.onYouTubeIframeAPIReady = function() {
     console.log("API IFrame YouTube chargée !");
   };
 
-  // Callback quand le player est prêt
   function onPlayerReady(event) {
     console.log("Player prêt");
     updateCurrentTitle();
@@ -21,14 +19,12 @@
     }
   }
 
-  // Callback sur les changements d'état du player
   function onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.PLAYING) {
       updateCurrentTitle();
     }
   }
 
-  // Met à jour le titre affiché
   function updateCurrentTitle() {
     if (player && typeof player.getVideoData === 'function') {
       var data = player.getVideoData();
@@ -36,7 +32,6 @@
     }
   }
 
-  // Remplit le menu déroulant de la playlist
   function populatePlaylistDropdown(playlist) {
     var dropdown = document.getElementById("playlistDropdown");
     dropdown.innerHTML = "";
@@ -49,7 +44,6 @@
     dropdown.selectedIndex = player.getPlaylistIndex();
   }
 
-  // Listener pour changer de morceau via le menu déroulant
   document.getElementById("playlistDropdown").addEventListener("change", function() {
     var index = parseInt(this.value, 10);
     if (player && !isNaN(index)) {
@@ -57,7 +51,6 @@
     }
   });
 
-  // Charge la vidéo ou la playlist en créant un nouveau YT.Player
   function loadVideo(videoID, playlistID, index) {
     console.log("Chargement de la vidéo:", videoID, "Playlist:", playlistID, "Index:", index);
     var audioOnly = document.getElementById('audioOnly').checked;
