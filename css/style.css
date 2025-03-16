@@ -12,6 +12,15 @@
   cursor: grab;
   resize: both;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.player-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .input-group {
   display: flex;
@@ -51,9 +60,6 @@
 }
 /* Bouton de fermeture placé en haut à droite à l'intérieur du player */
 .close-player {
-  position: absolute;
-  top: 5px;
-  right: 5px;
   width: 30px;
   height: 30px;
   background: #ff0000;
@@ -65,12 +71,13 @@
   line-height: 30px;
   text-align: center;
   padding: 0;
+  align-self: flex-end;
 }
 /* Bouton de réouverture affiché en bas à droite */
 .open-player {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  top: 70px;
+  left: 20px;
   background: #28a745;
   color: #fff;
   border: none;
