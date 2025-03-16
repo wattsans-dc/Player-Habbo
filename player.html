@@ -8,36 +8,41 @@
 </head>
 <body>
   <div id="playerContainer" class="player-container">
-    <form id="myForm">
-      <div class="input-group">
-        <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
-        <button type="button" id="submitFormData" class="play-button">Jouer</button>
-      </div>
-      <div class="controls">
-        <button type="button" id="pauseBtn" class="control-btn">Pause</button>
-        <button type="button" id="resumeBtn" class="control-btn">Reprendre</button>
-        <button type="button" id="stopBtn" class="control-btn">Stop</button>
-      </div>
-      <div class="controls">
-        <button type="button" id="volumeUp" class="control-btn">🔊 +</button>
-        <button type="button" id="volumeDown" class="control-btn">🔉 -</button>
-        <button type="button" id="resetVolume" class="control-btn">🔄 Volume</button>
-      </div>
-      <div class="controls">
-        <button type="button" id="speedUp" class="control-btn">⏩ +</button>
-        <button type="button" id="speedDown" class="control-btn">⏪ -</button>
-        <button type="button" id="resetSpeed" class="control-btn">🔄 Vitesse</button>
-      </div>
-      <div class="controls">
-        <button type="button" id="prevBtn" class="control-btn">Précédent</button>
-        <button type="button" id="nextBtn" class="control-btn">Suivant</button>
-      </div>
-      <div id="results" class="results"></div>
-      <label>
-        <input type="checkbox" id="audioOnly"> Mode audio seulement
-      </label>
-    </form>
+    <button id="closePlayer" class="close-player">×</button>
+    <div id="playerContent">
+      <form id="myForm">
+        <div class="input-group">
+          <input type="text" placeholder="Lien de la musique (YouTube)" id="video" name="video" class="input-field"/>
+          <button type="button" id="submitFormData" class="play-button">Jouer</button>
+        </div>
+        <div class="controls">
+          <button type="button" id="pauseBtn" class="control-btn">Pause</button>
+          <button type="button" id="resumeBtn" class="control-btn">Reprendre</button>
+          <button type="button" id="stopBtn" class="control-btn">Stop</button>
+        </div>
+        <div class="controls">
+          <button type="button" id="volumeUp" class="control-btn">🔊 +</button>
+          <button type="button" id="volumeDown" class="control-btn">🔉 -</button>
+          <button type="button" id="resetVolume" class="control-btn">🔄 Volume</button>
+        </div>
+        <div class="controls">
+          <button type="button" id="speedUp" class="control-btn">⏩ +</button>
+          <button type="button" id="speedDown" class="control-btn">⏪ -</button>
+          <button type="button" id="resetSpeed" class="control-btn">🔄 Vitesse</button>
+        </div>
+        <div class="controls">
+          <button type="button" id="prevBtn" class="control-btn">Précédent</button>
+          <button type="button" id="nextBtn" class="control-btn">Suivant</button>
+        </div>
+        <div id="results" class="results"></div>
+        <label>
+          <input type="checkbox" id="audioOnly"> Mode audio seulement
+        </label>
+      </form>
+    </div>
   </div>
+  <button id="showPlayer" class="show-player" style="display:none;">Afficher le Player</button>
+  
   <script src="js/utils.js"></script>
   <script src="js/youtubePlayer.js"></script>
   <script src="js/buttonHandlers.js"></script>
